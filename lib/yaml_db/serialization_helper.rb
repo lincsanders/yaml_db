@@ -80,6 +80,9 @@ module YamlDb
           truncate_table(table)
         end
         load_records(table, column_names, data['records'])
+
+        puts "Loaded table #{table} (#{data['columns'].length} columns, #{data['records'].length} records)"
+
         reset_pk_sequence!(table)
       end
 
