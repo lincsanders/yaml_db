@@ -34,17 +34,8 @@ module YamlDb
 
   class Dump < SerializationHelper::Dump
 
-    def self.dump_table_columns(io, table)
-      puts "Dumping columns for table #{table}..."
-
-      io.write("\n")
-      io.write({ table => { 'columns' => table_column_names(table) } }.to_yaml)
-    end
-
-    def self.dump_table_records(io, table)
+    def self.dump_table_contents(io, table)
       puts "Dumping records for table #{table}..."
-
-      table_record_header(io)
 
       column_names = table_column_names(table)
 
@@ -53,16 +44,19 @@ module YamlDb
         puts "Dumping records #{count} - #{count + records.to_a.length}..."
 
         rows = SerializationHelper::Utils.unhash_records(records.to_a, column_names)
-        io.write(Utils.chunk_records(rows))
+        # io.write(Utils.chunk_records(rows))
+        io.write({ 
+          table => { 
+            'records' => table_column_names(table),
+            'from' => count,
+            'to' => count += records.to_a.length,
+            'rows' => rows,
+          } 
+        }.to_yaml)
 
         count += records.to_a.length
       end
     end
-
-    def self.table_record_header(io)
-      io.write("  records: \n")
-    end
-
   end
 
   class Load < SerializationHelper::Load
@@ -70,10 +64,6 @@ module YamlDb
       YAML.load_stream(io) do |document|
         document.keys.each do |table_name|
           next if document[table_name].nil?
-
-          # puts "Skipping #{table_name}..." and next if table_name.in?([
-          #   'client_filenotes',
-          # ])
 
           load_table(table_name, document[table_name], truncate)
         end

@@ -76,9 +76,9 @@ module YamlDb
 
       def self.load_table(table, data, truncate = true)
         column_names = data['columns']
-        if truncate
-          truncate_table(table)
-        end
+
+        truncate_table(table) if truncate && data['from'] == 0
+
         load_records(table, column_names, data['records'])
 
         puts "Loaded table #{table} (#{data['columns'].length} columns, #{data['records'].length} records)"
@@ -87,9 +87,8 @@ module YamlDb
       end
 
       def self.load_records(table, column_names, records)
-        if column_names.nil?
-          return
-        end
+        return if column_names.nil?
+
         quoted_column_names = column_names.map { |column| ActiveRecord::Base.connection.quote_column_name(column) }.join(',')
         quoted_table_name = Utils.quote_table(table)
         records.each do |record|
@@ -191,8 +190,7 @@ module YamlDb
       def self.dump_table(io, table)
         return if table_record_count(table).zero?
 
-        dump_table_columns(io, table)
-        dump_table_records(io, table)
+        dump_table_contents(io, table)
       end
 
       def self.table_column_names(table)
