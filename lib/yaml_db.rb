@@ -71,7 +71,7 @@ module YamlDb
         document.keys.each do |table_name|
           next if document[table_name].nil?
 
-          puts "Skipping #{table}..." and return if table_name.in?([
+          puts "Skipping #{table_name}..." and next if table_name.in?([
             'client_filenote_attachments',
           ])
 
