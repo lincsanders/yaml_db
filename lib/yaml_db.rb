@@ -61,7 +61,7 @@ module YamlDb
       YAML.load_stream(io) do |document|
         document.keys.each do |table_name|
           next if document[table_name].nil?
-          puts "Loaded table #{table_name} (#{document[table_name]} records)"
+          puts "Loaded table #{table_name} (#{document[table_name].length} records)"
           load_table(table_name, document[table_name], truncate)
         end
       end
