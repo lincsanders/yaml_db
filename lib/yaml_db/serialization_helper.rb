@@ -205,8 +205,6 @@ module YamlDb
         binary_columns = Utils.binary_columns(table)
         quoted_table_name = Utils.quote_table(table)
 
-        puts "FOUND #{binary_columns.length} BINARY COLUMNS"
-
         (0..pages).to_a.each do |page|
           query = Arel::Table.new(table).order(*keys).skip(records_per_page*page).take(records_per_page).project(Arel.sql('*'))
           records = ActiveRecord::Base.connection.select_all(query.to_sql)
