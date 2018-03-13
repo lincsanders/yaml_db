@@ -1,18 +1,22 @@
 # YamlDb
 
-YamlDb is a database-independent format for dumping and restoring data.  It complements the the database-independent schema format found in db/schema.rb.  The data is saved into db/data.yml.
+YamlDb is a database-independent format for dumping and restoring data.  It complements the database-independent schema format found in db/schema.rb.  The data is saved into db/data.yml.
 
 This can be used as a replacement for mysqldump or pg_dump, but only for the databases typically used by Rails apps.  Users, permissions, schemas, triggers, and other advanced database features are not supported - by design.
 
 Any database that has an ActiveRecord adapter should work.
 
+This gem supports Rails versions 3.0 through 5.1.
+
+[![Build Status](https://travis-ci.org/yamldb/yaml_db.svg?branch=master)](https://travis-ci.org/yamldb/yaml_db)
+
 ## Installation
 
-This plugin can now be installed as a gem via 
+Simply add to your Gemfile:
 
-    gem install yaml_db
+    gem 'yaml_db'
 
-Note that when doing this, the rake tasks won't automatically be available to your app.  You'll have to explicitly include them via the approaches followed: [here](http://ggr.com/how-to-include-a-gems-rake-tasks-in-your-rails-app.html), [here](https://rails.lighthouseapp.com/projects/8994/tickets/510-rake-tasks-not-included-for-gems), [and here](https://rails.lighthouseapp.com/projects/8994/tickets/59)
+All rake tasks will then be available to you.
 
 ## Usage
 
@@ -40,9 +44,4 @@ One common use would be to switch your data from one database backend to another
 
 ## Credits
 
-Created by Orion Henry and Adam Wiggins.  Major updates by Ricardo Chimal, Jr.
-
-Patches contributed by Michael Irwin, Tom Locke, and Tim Galeckas.
-
-Send questions, feedback, or patches to the Heroku mailing list: http://groups.google.com/group/heroku
-
+Created by Orion Henry and Adam Wiggins. Major updates by Ricardo Chimal Jr. and Nate Kidwell.
