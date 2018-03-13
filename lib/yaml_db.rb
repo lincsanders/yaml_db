@@ -72,7 +72,7 @@ module YamlDb
           next if document[table_name].nil?
 
           puts "Skipping #{table_name}..." and next if table_name.in?([
-            'client_filenote_attachments',
+            'client_filenotes',
           ])
 
           load_table(table_name, document[table_name], truncate)
