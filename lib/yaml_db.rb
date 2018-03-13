@@ -71,9 +71,9 @@ module YamlDb
         document.keys.each do |table_name|
           next if document[table_name].nil?
 
-          puts "Skipping #{table_name}..." and next if table_name.in?([
-            'client_filenotes',
-          ])
+          # puts "Skipping #{table_name}..." and next if table_name.in?([
+          #   'client_filenotes',
+          # ])
 
           load_table(table_name, document[table_name], truncate)
         end
