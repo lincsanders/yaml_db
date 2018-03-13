@@ -142,7 +142,6 @@ module YamlDb
         records.each do |record|
           columns.each do |column|
             if column.class.respond_to?(:binary_to_string) and !record[column.name].nil? then
-              puts "FOUND BINARY COLUMN #{column.name}"
 
               abort 'TOO BIG' if record[column.name].length > 16.megabytes
               record[column.name] = column.class.binary_to_string( record[column.name] )
@@ -205,6 +204,8 @@ module YamlDb
         boolean_columns = Utils.boolean_columns(table)
         binary_columns = Utils.binary_columns(table)
         quoted_table_name = Utils.quote_table(table)
+
+        puts "FOUND #{binary_columns.name} BINARY COLUMNS"
 
         (0..pages).to_a.each do |page|
           query = Arel::Table.new(table).order(*keys).skip(records_per_page*page).take(records_per_page).project(Arel.sql('*'))
