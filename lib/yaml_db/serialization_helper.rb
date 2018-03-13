@@ -81,7 +81,7 @@ module YamlDb
 
         load_records(table, column_names, data['records'])
 
-        puts "Loaded table #{table} (#{data['columns'].length} columns, #{data['records'].length} records)"
+        puts "Imported #{data['records'].length} records into #{table} (#{data['columns'].length} cols)"
 
         reset_pk_sequence!(table)
       end
@@ -198,13 +198,13 @@ module YamlDb
       end
 
 
-      def self.each_table_page(table, records_per_page=200)
+      def self.each_table_page(table, records_per_page=500)
         total_count = table_record_count(table)
         pages = (total_count.to_f / records_per_page).ceil - 1
         keys = sort_keys(table)
         boolean_columns = Utils.boolean_columns(table)
         binary_columns = Utils.binary_columns(table)
-        quoted_table_name = Utils.quote_table(table)
+        # quoted_table_name = Utils.quote_table(table)
 
         (0..pages).to_a.each do |page|
           query = Arel::Table.new(table).order(*keys).skip(records_per_page*page).take(records_per_page).project(Arel.sql('*'))

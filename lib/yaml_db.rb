@@ -47,10 +47,10 @@ module YamlDb
         # io.write(Utils.chunk_records(rows))
         io.write({ 
           table => { 
-            'records' => table_column_names(table),
+            'columns' => table_column_names(table),
             'from' => count,
             'to' => count += records.to_a.length,
-            'rows' => rows,
+            'records' => rows,
           } 
         }.to_yaml)
 
