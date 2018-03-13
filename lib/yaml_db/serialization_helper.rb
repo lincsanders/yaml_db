@@ -33,9 +33,11 @@ module YamlDb
       end
 
       def load(filename, truncate = true)
+        puts "Loading #{filename}..."
         #disable_logger
         @loader.load(File.new(filename, "r"), truncate)
         #reenable_logger
+        puts "#{filename} loaded!"
       end
 
       def load_from_dir(dirname, truncate = true)
