@@ -33,9 +33,9 @@ module YamlDb
       end
 
       def load(filename, truncate = true)
-        disable_logger
+        #disable_logger
         @loader.load(File.new(filename, "r"), truncate)
-        reenable_logger
+        #reenable_logger
       end
 
       def load_from_dir(dirname, truncate = true)
@@ -142,8 +142,6 @@ module YamlDb
         records.each do |record|
           columns.each do |column|
             if column.class.respond_to?(:binary_to_string) and !record[column.name].nil? then
-
-              abort 'TOO BIG' if record[column.name].length > 16.megabytes
               record[column.name] = column.class.binary_to_string( record[column.name] )
             end
           end
