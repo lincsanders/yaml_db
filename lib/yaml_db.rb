@@ -61,6 +61,7 @@ module YamlDb
         YAML.load_documents(io) do |ydoc|
           ydoc.keys.each do |table_name|
             next if ydoc[table_name].nil?
+            puts "Loading table #{table_name}..."
             load_table(table_name, ydoc[table_name], truncate)
           end
         end
