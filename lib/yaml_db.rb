@@ -58,11 +58,11 @@ module YamlDb
 
   class Load < SerializationHelper::Load
     def self.load_documents(io, truncate = true)
-      YAML.load_documents(io) do |ydoc|
-        puts "Loaded table with #{ydoc.keys.length} keys..."
-        ydoc.keys.each do |table_name|
-          next if ydoc[table_name].nil?
-          load_table(table_name, ydoc[table_name], truncate)
+      YAML.load_stream(io) do |document|
+        document.keys.each do |table_name|
+          next if document[table_name].nil?
+          puts "Loaded table #{table_name} (#{document[table_name]} records)"
+          load_table(table_name, document[table_name], truncate)
         end
       end
     end
