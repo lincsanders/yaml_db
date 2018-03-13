@@ -197,7 +197,7 @@ module YamlDb
       end
 
 
-      def self.each_table_page(table, records_per_page=1000)
+      def self.each_table_page(table, records_per_page=200)
         total_count = table_record_count(table)
         pages = (total_count.to_f / records_per_page).ceil - 1
         keys = sort_keys(table)
