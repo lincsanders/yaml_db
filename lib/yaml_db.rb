@@ -23,13 +23,6 @@ module YamlDb
 
 
   module Utils
-    def self.chunk_records(records)
-      yaml = [ records ].to_yaml
-      yaml.sub!(/---\s\n|---\n/, '')
-      yaml.sub!('- - -', '  - -')
-      yaml
-    end
-
   end
 
   class Dump < SerializationHelper::Dump
@@ -44,12 +37,10 @@ module YamlDb
         puts "Dumping records #{count} - #{count + records.to_a.length}..."
 
         rows = SerializationHelper::Utils.unhash_records(records.to_a, column_names)
-        # io.write(Utils.chunk_records(rows))
         io.write({ 
           table => { 
             'columns' => table_column_names(table),
             'from' => count,
-            'to' => count += records.to_a.length,
             'records' => rows,
           } 
         }.to_yaml)
