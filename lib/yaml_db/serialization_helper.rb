@@ -142,6 +142,8 @@ module YamlDb
         records.each do |record|
           columns.each do |column|
             if column.class.respond_to?(:binary_to_string) and !record[column.name].nil? then
+              puts "FOUND BINARY COLUMN #{column.name}"
+
               abort 'TOO BIG' if record[column.name].length > 16.megabytes
               record[column.name] = column.class.binary_to_string( record[column.name] )
             end
