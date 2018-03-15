@@ -1,3 +1,9 @@
+# Another Fork?
+
+So I forked this to work with binary columns and better handle huge amounts of data. This should reliably rake db:data:dump and rake db:data:load on machines with less than 1Gb ram, unlike the original repo. It isn't compatible with dumps made from the original yaml_db. To use this instead, add the below to your Gemfile:
+
+    gem 'yaml_db', git: 'git@github.com:lincsanders/yaml_db.git', branch: 'master'
+
 # YamlDb
 
 YamlDb is a database-independent format for dumping and restoring data.  It complements the database-independent schema format found in db/schema.rb.  The data is saved into db/data.yml.
@@ -8,13 +14,11 @@ Any database that has an ActiveRecord adapter should work.
 
 This gem supports Rails versions 3.0 through 5.1.
 
-[![Build Status](https://travis-ci.org/yamldb/yaml_db.svg?branch=master)](https://travis-ci.org/yamldb/yaml_db)
-
 ## Installation
 
 Simply add to your Gemfile:
 
-    gem 'yaml_db'
+    gem 'yaml_db', git: 'git@github.com:lincsanders/yaml_db.git', branch: 'master'
 
 All rake tasks will then be available to you.
 
