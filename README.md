@@ -12,7 +12,7 @@ This can be used as a replacement for mysqldump or pg_dump, but only for the dat
 
 Any database that has an ActiveRecord adapter should work.
 
-This gem supports Rails versions 3.0 through 5.1.
+This gem supports Rails versions 3.0 through 5.x.
 
 ## Installation
 
